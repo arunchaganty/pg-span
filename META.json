@@ -1,0 +1,48 @@
+{
+   "name": "span",
+   "abstract": "A text span data type",
+   "description": "Provides a data type for document text spans that can be efficiently indexed.",
+   "version": "0.1.0",
+   "maintainer": [
+      "Arun Tejasvi Chaganty <arunchaganty@gmail.com>"
+   ],
+   "license": "postgresql",
+   "provides": {
+      "span": {
+         "abstract": "A document text span data type",
+         "file": "sql/span.sql",
+         "docfile": "doc/span.mmd",
+         "version": "0.1.0"
+      }
+   },
+   "prereqs": {
+      "runtime": {
+         "requires": {
+            "PostgreSQL": "8.4.0"
+         }
+      },
+      "test": {
+         "requires": {
+            "plpgsql": 0
+        }
+      }
+   },
+   "resources": {
+      "bugtracker": {
+         "web": "https://github.com/arunchaganty/pg-span/issues/"
+      },
+      "repository": {
+        "url":  "git://github.com/arunchaganty/pg-span.git",
+        "web":  "https://github.com/arunchaganty/pg-span/",
+        "type": "git"
+      }
+   },
+   "generated_by": "Arun Tejasvi Chaganty",
+   "meta-spec": {
+      "version": "1.0.0",
+      "url": "http://pgxn.org/meta/spec.txt"
+   },
+   "tags": [
+      "data type"
+   ]
+}

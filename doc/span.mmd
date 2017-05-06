@@ -1,0 +1,114 @@
+span 0.1.0
+=============
+
+Synopsis
+--------
+
+    CREATE EXTENSION span;
+
+    SELECT 'doc1:10-20'::span;
+     span
+    --------
+     1.2.1
+
+    SELECT 'doc1:10-20'::span > 'doc1:1-20'::span;
+     ?column?
+    ----------
+     t
+
+Description
+-----------
+
+This library contains a single PostgreSQL extension, a data type for
+representing spans of text in documents, called `span`.
+
+Usage
+-----
+
+Use like any other data type. Here's an example in a table:
+
+    CREATE TABLE person (
+        name        TEXT,
+        location    SPAN,
+        PRIMARY KEY (location)
+    );
+
+The type can be in indexed using btree or hash indexes:
+
+    CREATE INDEX idx_person_version ON person(location);
+    CREATE INDEX hdx_person_version ON person USING hash(location);
+
+Hash indexes aren't worth much, but the functionality is there to support hash
+aggregates in query optimizations.
+
+Interface
+---------
+
+### Operators ###
+
+ Operator | Description                               | Example                              | Result
+----------|-------------------------------------------|--------------------------------------|--------
+ `=`      | Are spans equivalent                      | 'abc:1-10'::span = 'abc:1-10'::span  | `t`
+ `<>`     | Are spans different                       | 'abc:1-10'::span <> 'def:1-10'::span | `f`
+ `<`      | Is span less than right span              | 'abc:1-10'::span < 'abc:3-5'::span   | `t`
+ `<=`     | Is span less than or equal to span        | 'abc:1-10'::span <= 'abc:1-20'::span | `t`
+ `>`      | Is span greater than right span           | 'def:1-10'::span > 'abc:1-10'::span  | `f`
+ `>=`     | Is span greater than or equal to span     | 'abc:1-10'::span >= 'abc:1-5'::span  | `f`
+
+### Functions ###
+
+ Function                      | Description                     | Example                           | Result
+-------------------------------|---------------------------------|-----------------------------------|----------
+ `is_span(text)`               | Test span text                  | `is_span('abc:1')`                | false
+ `span(text)`                  | Cast text to span               | `span('abc:1-10')`                | `abc:1-10`
+ `text(span)`                  | Cast span to text               | `text('abc:1-10'::span)`          | `abc:1-10`
+ `doc(span)`                   | Get doc id                      | `doc('abc:1-10')`                 | `abc`
+ `cbegin(span)`                | Get char begin                  | `cbegin('abc:1-10')`              | `1`
+ `cend(span)`                  | Get char end                    | `cend('abc:1-10')           `     | `10`
+
+### Aggregate Functions ###
+
+The examples assume the values inserted into the `person` table in the above examples.
+
+ Function    | Return Type | Description               | Example                       | Result
+-------------|-------------|---------------------------|-------------------------------|--------
+ `MIN(span)` |  `span`     | Return the lowest span    | `SELECT MIN(id) FROM person;` | `abc:1-10`
+ `MAX(span)` |  `span`     | Return the highest span   | `SELECT MAX(id) FROM person;` | `def:1-10`
+
+Support
+-------
+
+This library is stored in an open
+[GitHub repository](https://github.com/arunchaganty/pg-span). Feel free to fork
+and contribute! Please file bug reports via
+[GitHub Issues](https://github.com/arunchaganty/pg-span/issues/).
+
+Authors
+-------
+
+* [Arun Chaganty](http://arun.chagantys.org/)
+
+Copyright and License
+---------------------
+
+Copyright (c) 2010-2016 The pg-span Maintainers: Arun Chaganty.
+
+This module is free software; you can redistribute it and/or modify it under
+the [PostgreSQL License](http://www.opensource.org/licenses/postgresql).
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for any purpose, without fee, and without a written agreement is
+hereby granted, provided that the above copyright notice and this paragraph
+and the following two paragraphs appear in all copies.
+
+In no event shall The pg-span Maintainers be liable to any party for direct,
+indirect, special, incidental, or consequential damages, including lost
+profits, arising out of the use of this software and its documentation, even
+if The pg-span Maintainers have been advised of the possibility of such
+damage.
+
+The pg-span Maintainers specifically disclaim any warranties, including, but
+not limited to, the implied warranties of merchantability and fitness for a
+particular purpose. The software provided hereunder is on an "as is" basis,
+and The pg-span Maintainers no obligations to provide maintenance, support,
+updates, enhancements, or modifications.

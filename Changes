@@ -1,0 +1,7 @@
+Revision history for PostgreSQL extension span.
+
+0.1.0  2017-05-05 
+      - Initial version.
+      - Implementation in C.
+      - Included in [PGXN Manager](https://github.com/theory/pgxn-manager).
+      - Not otherwise released.

@@ -1,0 +1,5 @@
+# span extension
+comment = 'Text span data type'
+default_version = '0.1.0'
+module_pathname = '$libdir/span'
+relocatable = true
