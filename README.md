@@ -1,17 +1,16 @@
 span 0.1.0
 =============
 
-[![PGXN version](https://badge.fury.io/pg/semver.svg)](https://badge.fury.io/pg/semver)
-[![Build Status](https://travis-ci.org/theory/pg-semver.png)](https://travis-ci.org/theory/pg-semver)
+[![PGXN version](https://badge.fury.io/pg/span.svg)](https://badge.fury.io/pg/span)
+[![Build Status](https://travis-ci.org/theory/pg-span.png)](https://travis-ci.org/arunchaganty/pg-span)
 
-This library contains a single PostgreSQL extension, a data type called
-"semver". It's an implementation of the version number format specified by the
-[Semantic Versioning 2.0.0 Specification](http://semver.org/spec/v2.0.0.html).
+This library contains a single PostgreSQL extension, a data type to represent text spans in documents called
+"span". This repository was heavily adapted from [`pg-span`](https://github.com/theory/pg-span/).
 
 Installation
 ------------
 
-To build semver:
+To build span:
 
     make
     make install
@@ -48,37 +47,36 @@ You need to run the test suite using a super user, such as the default
 
     make installcheck PGUSER=postgres
 
-Once semver is installed, you can add it to a database. If you're running
+Once span is installed, you can add it to a database. If you're running
 PostgreSQL 9.1.0 or greater, it's a simple as connecting to a database as a
 super user and running:
 
-    CREATE EXTENSION semver;
+    CREATE EXTENSION span;
 
-If you've upgraded your cluster to PostgreSQL 9.1 and already had semver
+If you've upgraded your cluster to PostgreSQL 9.1 and already had span
 installed, you can upgrade it to a properly packaged extension with:
 
-    CREATE EXTENSION semver FROM unpackaged;
+    CREATE EXTENSION span FROM unpackaged;
 
 For versions of PostgreSQL less than 9.1.0, you'll need to run the
 installation script:
 
-    psql -d mydb -f /path/to/pgsql/share/contrib/semver.sql
+    psql -d mydb -f /path/to/pgsql/share/contrib/span.sql
 
-If you want to install semver and all of its supporting objects into a
+If you want to install span and all of its supporting objects into a
 specific schema, use the `PGOPTIONS` environment variable to specify the
 schema, like so:
 
-    PGOPTIONS=--search_path=extensions psql -d mydb -f semver.sql
+    PGOPTIONS=--search_path=extensions psql -d mydb -f span.sql
 
 Dependencies
 ------------
-The `semver` data type has no dependencies other than PostgreSQL and PL/pgSQL.
+The `span` data type has no dependencies other than PostgreSQL and PL/pgSQL.
 
 Copyright and License
 ---------------------
 
-Copyright (c) 2010-2016 The pg-semver Maintainers: David E. Wheeler, Sam
-Vilain, Tom Davis, and Xavier Caron.
+Copyright (c) 2010-2016 The pg-span Maintainers: Arun Chaganty.
 
 This module is free software; you can redistribute it and/or modify it under
 the [PostgreSQL License](http://www.opensource.org/licenses/postgresql).
@@ -88,14 +86,14 @@ documentation for any purpose, without fee, and without a written agreement is
 hereby granted, provided that the above copyright notice and this paragraph
 and the following two paragraphs appear in all copies.
 
-In no event shall The pg-semver Maintainers be liable to any party for direct,
+In no event shall The pg-span Maintainers be liable to any party for direct,
 indirect, special, incidental, or consequential damages, including lost
 profits, arising out of the use of this software and its documentation, even
-if The pg-semver Maintainers have been advised of the possibility of such
+if The pg-span Maintainers have been advised of the possibility of such
 damage.
 
-The pg-semver Maintainers specifically disclaim any warranties, including, but
+The pg-span Maintainers specifically disclaim any warranties, including, but
 not limited to, the implied warranties of merchantability and fitness for a
 particular purpose. The software provided hereunder is on an "as is" basis,
-and The pg-semver Maintainers no obligations to provide maintenance, support,
+and The pg-span Maintainers no obligations to provide maintenance, support,
 updates, enhancements, or modifications.
